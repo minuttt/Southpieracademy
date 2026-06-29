@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South Pier Academy | South Pier Hoopers — Singapore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fdf8e8',
+                            100: '#f9ecc5',
+                            200: '#f0d88a',
+                            300: '#e8c95a',
+                            400: '#d4af37',
+                            500: '#c8a845',
+                            600: '#a08030',
+                            700: '#7a6020',
+                            800: '#544215',
+                            900: '#2e250c',
+                        },
+                        sph: {
+                            black: '#0a0a0a',
+                            dark: '#111111',
+                            card: '#161616',
+                            border: 'rgba(200, 168, 69, 0.15)',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        oswald: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #ffffff; }
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+
+        /* Gold glow */
+        .gold-glow { box-shadow: 0 0 30px rgba(200, 168, 69, 0.3), 0 0 60px rgba(200, 168, 69, 0.1); }
+        .gold-glow-sm { box-shadow: 0 0 15px rgba(200, 168, 69, 0.2); }
+        .gold-text-glow { text-shadow: 0 0 40px rgba(200, 168, 69, 0.3); }
+
+        /* Hero parallax overlay */
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.7) 80%, rgba(10,10,10,1) 100%);
+        }
+
+        /* Gold border gradient */
+        .gold-border {
+            border: 1px solid rgba(200, 168, 69, 0.2);
+        }
+        .gold-border-hover:hover {
+            border-color: rgba(200, 168, 69, 0.5);
+        }
+
+        /* Championship banner shimmer */
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .shimmer-gold {
+            background: linear-gradient(90deg, #c8a845 0%, #f0d88a 25%, #c8a845 50%, #f0d88a 75%, #c8a845 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+        .reveal-delay-4 { transition-delay: 400ms; }
+
+        /* Team card hover */
+        .team-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(200, 168, 69, 0.15);
+            border-color: rgba(200, 168, 69, 0.4);
+        }
+        .team-card:hover .team-img {
+            transform: scale(1.05);
+        }
+
+        /* Nav scroll */
+        .nav-scrolled {
+            background: rgba(10, 10, 10, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(200, 168, 69, 0.1);
+        }
+
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 30s linear infinite;
+        }
+
+        /* Button shine */
+        .btn-gold {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s;
+        }
+        .btn-gold:hover::after {
+            left: 120%;
+        }
+
+        /* Stats counter */
+        .stat-line {
+            background: linear-gradient(180deg, rgba(200,168,69,0.3) 0%, transparent 100%);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Decorative pattern */
+        .pattern-grid {
+            background-image:
+                linear-gradient(rgba(200,168,69,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200,168,69,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Trophy pulse */
+        @keyframes trophyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .trophy-pulse {
+            animation: trophyPulse 3s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #c8a845; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        /* Selection */
+        ::selection { background: rgba(200, 168, 69, 0.3); color: #fff; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#hero" class="flex items-center gap-3 group">
+                <img src="https://z-cdn-media.chatglm.cn/files/de204179-d0a5-4466-8bd4-855580db0448.png?auth_key=1882714838-ec34c27e821e4d61b11271d3d7a091b9-0-98c3c3daeb876727c93ead5c0c4df5ad" alt="SPH Logo" class="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110">
+                <div class="hidden sm:block">
+                    <div class="font-oswald text-lg font-bold tracking-wider text-gold-400 leading-tight">SOUTH PIER</div>
+                    <div class="text-[10px] font-medium tracking-[0.3em] text-neutral-400 uppercase">Academy</div>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#about" class="text-sm font-medium text-neutral-400 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase">About</a>
+                <a href="#championship" class="text-sm font-medium text-neutral-400 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase">Championship</a>
+                <a href="#teams" class="text-sm font-medium text-neutral-400 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase">Teams</a>
+                <a href="#programs" class="text-sm font-medium text-neutral-400 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase">Programs</a>
+                <a href="#coaches" class="text-sm font-medium text-neutral-400 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase">Coaches</a>
+                <a href="#contact" class="btn-gold bg-gold-500 hover:bg-gold-400 text-sph-black font-semibold text-sm px-6 py-2.5 rounded transition-colors duration-300 tracking-wide uppercase">
+                    Join Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menuToggle" class="lg:hidden text-white p-2" aria-label="Menu">
+                <span class="iconify" data-icon="mdi:menu" data-width="28"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-sph-black/98 backdrop-blur-xl flex flex-col">
+        <div class="flex items-center justify-between px-6 py-4">
+            <img src="https://z-cdn-media.chatglm.cn/files/de204179-d0a5-4466-8bd4-855580db0448.png?auth_key=1882714838-ec34c27e821e4d61b11271d3d7a091b9-0-98c3c3daeb876727c93ead5c0c4df5ad" alt="SPH" class="h-10 w-10 object-contain">
+            <button id="menuClose" class="text-white p-2" aria-label="Close Menu">
+                <span class="iconify" data-icon="mdi:close" data-width="28"></span>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center flex-1 gap-8">
+            <a href="#about" class="mobile-nav-link font-oswald text-3xl font-bold text-white hover:text-gold-400 transition-colors">About</a>
+            <a href="#championship" class="mobile-nav-link font-oswald text-3xl font-bold text-white hover:text-gold-400 transition-colors">Championship</a>
+            <a href="#teams" class="mobile-nav-link font-oswald text-3xl font-bold text-white hover:text-gold-400 transition-colors">Teams</a>
+            <a href="#programs" class="mobile-nav-link font-oswald text-3xl font-bold text-white hover:text-gold-400 transition-colors">Programs</a>
+            <a href="#coaches" class="mobile-nav-link font-oswald text-3xl font-bold text-white hover:text-gold-400 transition-colors">Coaches</a>
+            <a href="#contact" class="btn-gold bg-gold-500 text-sph-black font-bold text-lg px-10 py-3 rounded mt-4">Join Now</a>
+        </div>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img src="https://picsum.photos/seed/sph-basketball-court/1920/1080.jpg" alt="Basketball Court" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gold-500/5 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-500/5 rounded-full blur-[120px]"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-20">
+            <!-- Badge -->
+            <div class="reveal inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2 mb-8">
+                <span class="iconify text-gold-400" data-icon="mdi:map-marker" data-width="16"></span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-300">Singapore's Elite Basketball Academy</span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="reveal reveal-delay-1 font-oswald text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight mb-6">
+                <span class="block text-white">South Pier</span>
+                <span class="block shimmer-gold">Hoopers</span>
+            </h1>
+
+            <!-- Values -->
+            <div class="reveal reveal-delay-2 flex items-center justify-center gap-6 sm:gap-10 mb-8">
+                <span class="font-oswald text-sm sm:text-base font-medium tracking-[0.3em] text-gold-400/80 uppercase">Discipline</span>
+                <span class="w-1 h-1 bg-gold-400 rounded-full"></span>
+                <span class="font-oswald text-sm sm:text-base font-medium tracking-[0.3em] text-gold-400/80 uppercase">Focus</span>
+                <span class="w-1 h-1 bg-gold-400 rounded-full"></span>
+                <span class="font-oswald text-sm sm:text-base font-medium tracking-[0.3em] text-gold-400/80 uppercase">Grit</span>
+            </div>
+
+            <!-- Subtitle -->
+            <p class="reveal reveal-delay-3 text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Building champions on and off the court. From youth development to professional competition — South Pier Academy is where greatness begins.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="reveal reveal-delay-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#programs" class="btn-gold bg-gold-500 hover:bg-gold-400 text-sph-black font-bold text-sm px-8 py-4 rounded transition-all duration-300 tracking-wider uppercase w-full sm:w-auto">
+                    Explore Programs
+                </a>
+                <a href="#championship" class="group flex items-center gap-2 border border-gold-500/30 hover:border-gold-500/60 text-gold-400 font-semibold text-sm px-8 py-4 rounded transition-all duration-300 tracking-wider uppercase w-full sm:w-auto justify-center">
+                    <span class="iconify trophy-pulse" data-icon="mdi:trophy" data-width="18"></span>
+                    2024 Champions
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-[10px] tracking-[0.3em] uppercase text-neutral-500">Scroll</span>
+            <span class="iconify text-gold-400/50" data-icon="mdi:chevron-down" data-width="20"></span>
+        </div>
+    </section>
+
+    <!-- ==================== MARQUEE BANNER ==================== -->
+    <div class="bg-gold-500 py-3 overflow-hidden">
+        <div class="marquee-track flex items-center gap-8 whitespace-nowrap" style="width: max-content;">
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ 2024 PIBI CHAMPIONS ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ DISCIPLINE · FOCUS · GRIT ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ SINGAPORE'S ELITE BASKETBALL ACADEMY ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ PROFESSIONAL · U18 · U16 · MEN'S DIVISION ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ EST. 2026 ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ 2024 PIBI CHAMPIONS ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ DISCIPLINE · FOCUS · GRIT ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ SINGAPORE'S ELITE BASKETBALL ACADEMY ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ PROFESSIONAL · U18 · U16 · MEN'S DIVISION ★</span>
+            <span class="font-oswald text-sph-black font-bold text-sm tracking-widest uppercase">★ EST. 2026 ★</span>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="relative py-24 sm:py-32 pattern-grid">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Image Composition -->
+                <div class="reveal relative">
+                    <div class="relative gold-border rounded-2xl overflow-hidden">
+                        <img src="https://picsum.photos/seed/sph-team-huddle/700/500.jpg" alt="South Pier Hoopers Team" class="w-full h-[400px] sm:h-[500px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-black/60 via-transparent to-transparent"></div>
+                    </div>
+                    <!-- Floating Stats Card -->
+                    <div class="absolute -bottom-6 -right-4 sm:right-6 bg-sph-card border border-gold-500/20 rounded-xl p-5 gold-glow-sm">
+                        <div class="font-oswald text-3xl font-bold text-gold-400">4</div>
+                        <div class="text-xs text-neutral-400 tracking-wider uppercase mt-1">Competitive Divisions</div>
+                    </div>
+                    <!-- Year Badge -->
+                    <div class="absolute -top-4 -left-4 sm:left-6 bg-gold-500 text-sph-black rounded-full w-20 h-20 flex flex-col items-center justify-center gold-glow-sm">
+                        <span class="font-oswald text-2xl font-bold leading-none">'26</span>
+                        <span class="text-[8px] font-bold tracking-wider uppercase">Est.</span>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div>
+                    <div class="reveal">
+                        <span class="text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">About Us</span>
+                        <h2 class="font-oswald text-4xl sm:text-5xl font-bold uppercase leading-[1.1] mb-6">
+                            Forged in <span class="text-gold-400">Singapore,</span><br>
+                            Built to <span class="text-gold-400">Dominate</span>
+                        </h2>
+                    </div>
+                    <div class="reveal reveal-delay-1">
+                        <p class="text-neutral-400 leading-relaxed mb-6">
+                            South Pier Academy was founded with a singular vision: to elevate Singapore basketball to the highest level across Southeast Asia. Our name draws from the strength of the pier — unyielding, steadfast, and a gateway to greater horizons.
+                        </p>
+                        <p class="text-neutral-400 leading-relaxed mb-8">
+                            With a roster spanning Professional, Men's Division, U18, and U16 categories, we provide a complete developmental pathway from youth fundamentals to elite-level competition. Our warrior ethos — Discipline, Focus, Grit — is ingrained in every player who wears the South Pier jersey.
+                        </p>
+                    </div>
+
+                    <!-- Values Grid -->
+                    <div class="reveal reveal-delay-2 grid grid-cols-3 gap-4">
+                        <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="iconify text-gold-400 mx-auto mb-2" data-icon="mdi:shield-sword" data-width="28"></span>
+                            <div class="font-oswald text-sm font-bold tracking-wider uppercase">Discipline</div>
+                        </div>
+                        <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="iconify text-gold-400 mx-auto mb-2" data-icon="mdi:target" data-width="28"></span>
+                            <div class="font-oswald text-sm font-bold tracking-wider uppercase">Focus</div>
+                        </div>
+                        <div class="text-center p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                            <span class="iconify text-gold-400 mx-auto mb-2" data-icon="mdi:fire" data-width="28"></span>
+                            <div class="font-oswald text-sm font-bold tracking-wider uppercase">Grit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CHAMPIONSHIP ==================== -->
+    <section id="championship" class="relative py-24 sm:py-32 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-b from-sph-black via-sph-dark to-sph-black"></div>
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://picsum.photos/seed/sph-confetti-gold/1920/800.jpg" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-5 py-2 mb-6">
+                    <span class="iconify text-gold-400 trophy-pulse" data-icon="mdi:trophy" data-width="16"></span>
+                    <span class="text-xs font-semibold tracking-widest uppercase text-gold-400">Championship Glory</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-6xl md:text-7xl font-bold uppercase leading-[0.95] mb-4">
+                    <span class="shimmer-gold">1st Place</span>
+                </h2>
+                <p class="reveal reveal-delay-2 text-neutral-400 text-lg max-w-2xl mx-auto">
+                    Philippines International Basketball Invitational 2024
+                </p>
+            </div>
+
+            <!-- Championship Content -->
+            <div class="grid lg:grid-cols-5 gap-8 items-start">
+                <!-- Trophy Image -->
+                <div class="reveal lg:col-span-2 relative">
+                    <div class="gold-border rounded-2xl overflow-hidden gold-glow">
+                        <img src="https://picsum.photos/seed/sph-trophy-championship/600/700.jpg" alt="PIBI Championship Trophy" class="w-full h-[400px] lg:h-[500px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-black via-sph-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="font-oswald text-5xl font-bold text-gold-400 gold-text-glow">CHAMPIONS</div>
+                            <div class="text-sm text-neutral-300 mt-1">Manila, Philippines · December 2024</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tournament Details -->
+                <div class="lg:col-span-3 space-y-6">
+                    <!-- Tournament Card -->
+                    <div class="reveal reveal-delay-1 bg-sph-card gold-border rounded-2xl p-6 sm:p-8">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-gold-400" data-icon="mdi:trophy-variant" data-width="28"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-oswald text-2xl font-bold uppercase tracking-wide">Philippines International Basketball Invitational</h3>
+                                <p class="text-neutral-500 text-sm mt-1">PIBI 2024 · Smart Araneta Coliseum, Quezon City</p>
+                            </div>
+                        </div>
+                        <p class="text-neutral-400 leading-relaxed mb-6">
+                            The PIBI is an elite invitational tournament bringing together top club teams from across Southeast Asia. In its inaugural 2024 edition, South Pier Hoopers' Professional squad dominated the competition, going undefeated through group play and the knockout rounds to claim the championship title.
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="bg-white/[0.03] rounded-xl p-4 text-center">
+                                <div class="font-oswald text-2xl font-bold text-gold-400">6-0</div>
+                                <div class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Record</div>
+                            </div>
+                            <div class="bg-white/[0.03] rounded-xl p-4 text-center">
+                                <div class="font-oswald text-2xl font-bold text-gold-400">8</div>
+                                <div class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Teams</div>
+                            </div>
+                            <div class="bg-white/[0.03] rounded-xl p-4 text-center">
+                                <div class="font-oswald text-2xl font-bold text-gold-400">MVP</div>
+                                <div class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Award Won</div>
+                            </div>
+                            <div class="bg-white/[0.03] rounded-xl p-4 text-center">
+                                <div class="font-oswald text-2xl font-bold text-gold-400">+18.5</div>
+                                <div class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Avg Margin</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Finals Score -->
+                    <div class="reveal reveal-delay-2 bg-sph-card gold-border rounded-2xl p-6 sm:p-8">
+                        <div class="text-xs font-semibold tracking-widest uppercase text-gold-400 mb-4">Finals Result</div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <img src="https://z-cdn-media.chatglm.cn/files/de204179-d0a5-4466-8bd4-855580db0448.png?auth_key=1882714838-ec34c27e821e4d61b11271d3d7a091b9-0-98c3c3daeb876727c93ead5c0c4df5ad" alt="SPH" class="h-14 w-14 object-contain">
+                                <div>
+                                    <div class="font-oswald text-lg font-bold">South Pier Hoopers</div>
+                                    <div class="text-xs text-neutral-500">Singapore</div>
+                                </div>
+                            </div>
+                            <div class="text-center px-4">
+                                <div class="font-oswald text-4xl sm:text-5xl font-bold">
+                                    <span class="text-gold-400">98</span>
+                                    <span class="text-neutral-600 mx-2">-</span>
+                                    <span class="text-neutral-400">79</span>
+                                </div>
+                                <div class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Final Score</div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="text-right">
+                                    <div class="font-oswald text-lg font-bold text-neutral-400">Manila Titans BC</div>
+                                    <div class="text-xs text-neutral-500">Philippines</div>
+                                </div>
+                                <div class="w-14 h-14 bg-neutral-800 rounded-full flex items-center justify-center">
+                                    <span class="font-oswald text-lg font-bold text-neutral-500">MT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Participating Teams -->
+                    <div class="reveal reveal-delay-3 bg-sph-card gold-border rounded-2xl p-6">
+                        <div class="text-xs font-semibold tracking-widest uppercase text-gold-400 mb-4">Participating Nations</div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-gold-500/10 text-gold-400 text-xs font-semibold px-4 py-2 rounded-full border border-gold-500/20">🇸🇬 Singapore</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇵🇭 Philippines</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇮🇩 Indonesia</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇹🇭 Thailand</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇲🇾 Malaysia</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇻🇳 Vietnam</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇲🇲 Myanmar</span>
+                            <span class="bg-white/5 text-neutral-400 text-xs font-semibold px-4 py-2 rounded-full border border-white/5">🇰🇭 Cambodia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS BAR ==================== -->
+    <section class="relative py-16 bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal">
+                    <div class="font-oswald text-4xl sm:text-5xl font-bold text-sph-black" data-count="120">0</div>
+                    <div class="text-sph-black/70 text-xs font-semibold tracking-widest uppercase mt-2">Active Athletes</div>
+                </div>
+                <div class="reveal reveal-delay-1">
+                    <div class="font-oswald text-4xl sm:text-5xl font-bold text-sph-black" data-count="4">0</div>
+                    <div class="text-sph-black/70 text-xs font-semibold tracking-widest uppercase mt-2">Team Divisions</div>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <div class="font-oswald text-4xl sm:text-5xl font-bold text-sph-black" data-count="15">0</div>
+                    <div class="text-sph-black/70 text-xs font-semibold tracking-widest uppercase mt-2">Tournament Titles</div>
+                </div>
+                <div class="reveal reveal-delay-3">
+                    <div class="font-oswald text-4xl sm:text-5xl font-bold text-sph-black" data-count="8">0</div>
+                    <div class="text-sph-black/70 text-xs font-semibold tracking-widest uppercase mt-2">Pro Coaching Staff</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TEAMS ==================== -->
+    <section id="teams" class="relative py-24 sm:py-32 pattern-grid">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Our Rosters</span>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl md:text-6xl font-bold uppercase leading-[0.95] mb-4">
+                    Compete at <span class="text-gold-400">Every Level</span>
+                </h2>
+                <p class="reveal reveal-delay-2 text-neutral-400 text-lg max-w-xl mx-auto">
+                    Four divisions. One standard. From youth development to professional competition.
+                </p>
+            </div>
+
+            <!-- Team Cards Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Professional -->
+                <div class="reveal team-card gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card group cursor-pointer">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://picsum.photos/seed/sph-pro-team/500/400.jpg" alt="Professional Team" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-sph-card/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-gold-500 text-sph-black text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">Pro</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-2">Professional</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed mb-4">Our flagship squad competing in regional and international tournaments across Southeast Asia.</p>
+                        <div class="flex items-center gap-2 text-gold-400 text-xs font-semibold tracking-wider uppercase group-hover:gap-3 transition-all">
+                            <span>View Roster</span>
+                            <span class="iconify" data-icon="mdi:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Men's Division -->
+                <div class="reveal reveal-delay-1 team-card gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card group cursor-pointer">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://picsum.photos/seed/sph-mens-division/500/400.jpg" alt="Men's Division" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-sph-card/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border border-white/10">Men's</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-2">Men's Division</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed mb-4">Competing in Singapore's domestic leagues with a focus on tactical excellence and team cohesion.</p>
+                        <div class="flex items-center gap-2 text-gold-400 text-xs font-semibold tracking-wider uppercase group-hover:gap-3 transition-all">
+                            <span>View Roster</span>
+                            <span class="iconify" data-icon="mdi:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- U18 -->
+                <div class="reveal reveal-delay-2 team-card gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card group cursor-pointer">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://picsum.photos/seed/sph-u18-youth/500/400.jpg" alt="U18 Team" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-sph-card/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border border-white/10">U18</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-2">Under 18</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed mb-4">Elite youth development preparing athletes for collegiate and professional pathways.</p>
+                        <div class="flex items-center gap-2 text-gold-400 text-xs font-semibold tracking-wider uppercase group-hover:gap-3 transition-all">
+                            <span>View Roster</span>
+                            <span class="iconify" data-icon="mdi:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- U16 -->
+                <div class="reveal reveal-delay-3 team-card gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card group cursor-pointer">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://picsum.photos/seed/sph-u16-juniors/500/400.jpg" alt="U16 Team" class="team-img w-full h-full object-cover transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-sph-card/40 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border border-white/10">U16</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-2">Under 16</h3>
+                        <p class="text-neutral-500 text-sm leading-relaxed mb-4">Foundation-level training building fundamental skills, IQ, and the South Pier warrior mindset.</p>
+                        <div class="flex items-center gap-2 text-gold-400 text-xs font-semibold tracking-wider uppercase group-hover:gap-3 transition-all">
+                            <span>View Roster</span>
+                            <span class="iconify" data-icon="mdi:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROGRAMS ==================== -->
+    <section id="programs" class="relative py-24 sm:py-32 bg-sph-dark">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Training Programs</span>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl md:text-6xl font-bold uppercase leading-[0.95] mb-4">
+                    sharpen Your <span class="text-gold-400">Edge</span>
+                </h2>
+                <p class="reveal reveal-delay-2 text-neutral-400 text-lg max-w-xl mx-auto">
+                    Structured programs designed by professionals, tailored for every stage of your basketball journey.
+                </p>
+            </div>
+
+            <!-- Programs Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Program 1 -->
+                <div class="reveal gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:basketball" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">Elite Skills Training</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Advanced ball handling, shooting mechanics, footwork, and one-on-one scoring moves for competitive players.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 90 min</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account-group" data-width="14"></span> Max 12</span>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="reveal reveal-delay-1 gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:strategy" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">Tactical IQ Camp</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Film study, court spacing, pick-and-roll concepts, defensive schemes, and in-game decision making.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 120 min</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account-group" data-width="14"></span> Max 16</span>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="reveal reveal-delay-2 gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:dumbbell" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">Strength & Conditioning</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Sport-specific strength training, plyometrics, injury prevention, and athletic performance optimization.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 75 min</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account-group" data-width="14"></span> Max 8</span>
+                    </div>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="reveal gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:account-child" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">Youth Foundation</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Fundamental skills development for ages 10-15. Building the right habits from day one.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 60 min</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account-group" data-width="14"></span> Max 20</span>
+                    </div>
+                </div>
+
+                <!-- Program 5 -->
+                <div class="reveal reveal-delay-1 gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:calendar-check" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">Holiday Intensive</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Week-long immersive camps during school holidays. 5 days of high-volume training and competition.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 3 hrs/day</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account-group" data-width="14"></span> Max 24</span>
+                    </div>
+                </div>
+
+                <!-- Program 6 -->
+                <div class="reveal reveal-delay-2 gold-border gold-border-hover rounded-2xl p-8 bg-sph-card group transition-all duration-400 hover:bg-white/[0.04]">
+                    <div class="w-14 h-14 bg-gold-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500/20 transition-colors">
+                        <span class="iconify text-gold-400" data-icon="mdi:account-supervisor" data-width="28"></span>
+                    </div>
+                    <h3 class="font-oswald text-xl font-bold uppercase tracking-wide mb-3">1-on-1 Private Coaching</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-4">Personalized training plans with dedicated coaching. Accelerated development for serious athletes.</p>
+                    <div class="flex items-center gap-4 text-xs text-neutral-600">
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:clock-outline" data-width="14"></span> 60 min</span>
+                        <span class="flex items-center gap-1"><span class="iconify" data-icon="mdi:account" data-width="14"></span> 1-on-1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COACHES ==================== -->
+    <section id="coaches" class="relative py-24 sm:py-32 pattern-grid">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Coaching Staff</span>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl md:text-6xl font-bold uppercase leading-[0.95] mb-4">
+                    Led by <span class="text-gold-400">the Best</span>
+                </h2>
+                <p class="reveal reveal-delay-2 text-neutral-400 text-lg max-w-xl mx-auto">
+                    Our coaches bring decades of combined experience from professional leagues across Asia.
+                </p>
+            </div>
+
+            <!-- Coaches Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Coach 1 -->
+                <div class="reveal group">
+                    <div class="gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card transition-all duration-400">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://picsum.photos/seed/coach-marcus-head/500/500.jpg" alt="Coach Marcus Tan" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-[10px] font-semibold tracking-widest uppercase text-gold-400 mb-1">Head Coach · Professional</div>
+                            <h3 class="font-oswald text-xl font-bold uppercase tracking-wide">Marcus Tan</h3>
+                            <p class="text-neutral-500 text-sm mt-2">Former ASEAN Basketball League player. 12 years coaching experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coach 2 -->
+                <div class="reveal reveal-delay-1 group">
+                    <div class="gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card transition-all duration-400">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://picsum.photos/seed/coach-rizal-asst/500/500.jpg" alt="Coach Rizal Ahmad" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-[10px] font-semibold tracking-widest uppercase text-gold-400 mb-1">Asst. Coach · Professional</div>
+                            <h3 class="font-oswald text-xl font-bold uppercase tracking-wide">Rizal Ahmad</h3>
+                            <p class="text-neutral-500 text-sm mt-2">NPB champion. Specializes in defensive systems and player development.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coach 3 -->
+                <div class="reveal reveal-delay-2 group">
+                    <div class="gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card transition-all duration-400">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://picsum.photos/seed/coach-david-youth/500/500.jpg" alt="Coach David Lim" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-[10px] font-semibold tracking-widest uppercase text-gold-400 mb-1">Head Coach · U18 & U16</div>
+                            <h3 class="font-oswald text-xl font-bold uppercase tracking-wide">David Lim</h3>
+                            <p class="text-neutral-500 text-sm mt-2">National youth team alumnus. FIBA-certified Level 2 coach.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coach 4 -->
+                <div class="reveal reveal-delay-3 group">
+                    <div class="gold-border gold-border-hover rounded-2xl overflow-hidden bg-sph-card transition-all duration-400">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://picsum.photos/seed/coach-sarah-snc/500/500.jpg" alt="Coach Sarah Chen" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-sph-card via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-[10px] font-semibold tracking-widest uppercase text-gold-400 mb-1">S&C Coach</div>
+                            <h3 class="font-oswald text-xl font-bold uppercase tracking-wide">Sarah Chen</h3>
+                            <p class="text-neutral-500 text-sm mt-2">CSCS certified. Former national team strength coach for Singapore.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section class="relative py-24 sm:py-32 bg-sph-dark">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Testimonials</span>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl font-bold uppercase leading-[0.95]">
+                    What Our <span class="text-gold-400">Athletes</span> Say
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="reveal gold-border rounded-2xl p-8 bg-sph-card">
+                    <div class="flex items-center gap-1 mb-4">
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                    </div>
+                    <p class="text-neutral-300 leading-relaxed mb-6 italic">"South Pier didn't just make me a better player — they made me a different person. The discipline and standards here are unlike anything else in Singapore. Winning PIBI was the result of years of culture-building."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center">
+                            <span class="font-oswald text-sm font-bold text-gold-400">JT</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Jonathan Teo</div>
+                            <div class="text-xs text-neutral-500">Professional Team · Point Guard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="reveal reveal-delay-1 gold-border rounded-2xl p-8 bg-sph-card">
+                    <div class="flex items-center gap-1 mb-4">
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                        <span class="iconify text-gold-400" data-icon="mdi:star" data-width="16"></span>
+                    </div>
+                    <p class="text-neutral-300 leading-relaxed mb-6 italic">"I joined the U16 program as a complete beginner. Two years later, I'm starting for the U18 squad. The coaches genuinely care about your growth — not just as a player, but as a person."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center">
+                            <span class="font-oswald text-sm font-bold text-gold-400">AN</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Aiden Ng</div>
+                            <div class="text-xs text-neutral-500">U18 Team · Wing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY / LIFESTYLE ==================== -->
+    <section class="relative py-24 sm:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Gallery</span>
+                <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl font-bold uppercase leading-[0.95]">
+                    The <span class="text-gold-400">South Pier</span> Life
+                </h2>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div class="col-span-2 row-span-2 gold-border rounded-2xl overflow-hidden">
+                    <img src="https://picsum.photos/seed/sph-gallery-action/800/800.jpg" alt="Game Action" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="gold-border rounded-2xl overflow-hidden aspect-square">
+                    <img src="https://picsum.photos/seed/sph-gallery-training/400/400.jpg" alt="Training" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="gold-border rounded-2xl overflow-hidden aspect-square">
+                    <img src="https://picsum.photos/seed/sph-gallery-huddle/400/400.jpg" alt="Team Huddle" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="gold-border rounded-2xl overflow-hidden aspect-square">
+                    <img src="https://picsum.photos/seed/sph-gallery-gym/400/400.jpg" alt="Gym Session" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="gold-border rounded-2xl overflow-hidden aspect-square">
+                    <img src="https://picsum.photos/seed/sph-gallery-celebrate/400/400.jpg" alt="Celebration" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA / CONTACT ==================== -->
+    <section id="contact" class="relative py-24 sm:py-32 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-sph-dark via-sph-black to-sph-dark"></div>
+        <div class="absolute inset-0 pattern-grid opacity-50"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/5 rounded-full blur-[150px]"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Left: Info -->
+                <div>
+                    <span class="reveal text-xs font-semibold tracking-[0.3em] uppercase text-gold-400 mb-4 block">Get Started</span>
+                    <h2 class="reveal reveal-delay-1 font-oswald text-4xl sm:text-5xl font-bold uppercase leading-[0.95] mb-6">
+                        Ready to <span class="text-gold-400">Join</span> the Pack?
+                    </h2>
+                    <p class="reveal reveal-delay-2 text-neutral-400 leading-relaxed mb-10">
+                        Whether you're an aspiring youth player or a seasoned competitor, South Pier Academy has a place for you. Fill out the form and our team will be in touch within 48 hours.
+                    </p>
+
+                    <!-- Contact Details -->
+                    <div class="reveal reveal-delay-3 space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-gold-400" data-icon="mdi:map-marker-outline" data-width="22"></span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm mb-1">Training Facility</div>
+                                <div class="text-neutral-500 text-sm">100 Orchard Road, #03-01<br>Singapore 238840</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-gold-400" data-icon="mdi:email-outline" data-width="22"></span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm mb-1">Email</div>
+                                <div class="text-neutral-500 text-sm">info@southpieracademy.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-gold-400" data-icon="mdi:phone-outline" data-width="22"></span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm mb-1">Phone</div>
+                                <div class="text-neutral-500 text-sm">+65 6123 4567</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="reveal reveal-delay-4 flex items-center gap-4 mt-10">
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-neutral-500 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:instagram" data-width="18"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-neutral-500 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:facebook" data-width="18"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-neutral-500 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:youtube" data-width="18"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-white/10 rounded-lg flex items-center justify-center text-neutral-500 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:tiktok" data-width="18"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="reveal reveal-delay-2">
+                    <form id="contactForm" class="gold-border rounded-2xl p-6 sm:p-8 bg-sph-card/80 backdrop-blur-sm space-y-5">
+                        <div>
+                            <label class="text-xs font-semibold tracking-wider uppercase text-neutral-400 mb-2 block">Full Name *</label>
+                            <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500/50 transition-colors" placeholder="Enter your name">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-semibold tracking-wider uppercase text-neutral-400 mb-2 block">Email *</label>
+                                <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500/50 transition-colors" placeholder="Email address">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold tracking-wider uppercase text-neutral-400 mb-2 block">Phone</label>
+                                <input type="tel" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500/50 transition-colors" placeholder="+65...">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold tracking-wider uppercase text-neutral-400 mb-2 block">Interested Division *</label>
+                            <select required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500/50 transition-colors appearance-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 16px center;">
+                                <option value="" disabled selected style="color:#555;">Select a division</option>
+                                <option value="pro" style="color:#000;">Professional Team</option>
+                                <option value="mens" style="color:#000;">Men's Division</option>
+                                <option value="u18" style="color:#000;">Under 18</option>
+                                <option value="u16" style="color:#000;">Under 16</option>
+                                <option value="training" style="color:#000;">Training Programs Only</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold tracking-wider uppercase text-neutral-400 mb-2 block">Message</label>
+                            <textarea rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500/50 transition-colors resize-none" placeholder="Tell us about your experience and goals..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold w-full bg-gold-500 hover:bg-gold-400 text-sph-black font-bold text-sm py-4 rounded-xl transition-colors duration-300 tracking-wider uppercase">
+                            Submit Application
+                        </button>
+                        <div id="formMessage" class="hidden text-center text-sm py-3 rounded-xl"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="relative bg-sph-black border-t border-white/5">
+        <!-- Top Bar -->
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Brand -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-5">
+                        <img src="https://z-cdn-media.chatglm.cn/files/de204179-d0a5-4466-8bd4-855580db0448.png?auth_key=1882714838-ec34c27e821e4d61b11271d3d7a091b9-0-98c3c3daeb876727c93ead5c0c4df5ad" alt="SPH" class="h-12 w-12 object-contain">
+                        <div>
+                            <div class="font-oswald text-lg font-bold text-gold-400 tracking-wider leading-tight">SOUTH PIER</div>
+                            <div class="text-[10px] tracking-[0.3em] text-neutral-500 uppercase">Academy</div>
+                        </div>
+                    </div>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-6">Singapore's premier basketball academy. Discipline. Focus. Grit.</p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-9 h-9 border border-white/10 rounded-lg flex items-center justify-center text-neutral-600 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:instagram" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-white/10 rounded-lg flex items-center justify-center text-neutral-600 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:facebook" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-white/10 rounded-lg flex items-center justify-center text-neutral-600 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:youtube" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-9 h-9 border border-white/10 rounded-lg flex items-center justify-center text-neutral-600 hover:text-gold-400 hover:border-gold-500/30 transition-all duration-300">
+                            <span class="iconify" data-icon="mdi:tiktok" data-width="16"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-oswald text-sm font-bold tracking-widest uppercase text-neutral-300 mb-5">Academy</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">About Us</a></li>
+                        <li><a href="#teams" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Our Teams</a></li>
+                        <li><a href="#programs" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Programs</a></li>
+                        <li><a href="#coaches" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Coaching Staff</a></li>
+                        <li><a href="#championship" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Achievements</a></li>
+                    </ul>
+                </div>
+
+                <!-- Teams -->
+                <div>
+                    <h4 class="font-oswald text-sm font-bold tracking-widest uppercase text-neutral-300 mb-5">Teams</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Professional Squad</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Men's Division</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Under 18</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Under 16</a></li>
+                    </ul>
+                </div>
+
+                <!-- Programs -->
+                <div>
+                    <h4 class="font-oswald text-sm font-bold tracking-widest uppercase text-neutral-300 mb-5">Programs</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Elite Skills Training</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Tactical IQ Camp</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Strength & Conditioning</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Youth Foundation</a></li>
+                        <li><a href="#" class="text-neutral-500 text-sm hover:text-gold-400 transition-colors">Holiday Intensive</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-neutral-600">© 2026 South Pier Academy. All rights reserved.</div>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="text-xs text-neutral-600 hover:text-neutral-400 transition-colors">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ===== Navigation Scroll Effect =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // ===== Mobile Menu =====
+        const menuToggle = document.getElementById('menuToggle');
+        const menuClose = document.getElementById('menuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+        menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // ===== Scroll Reveal =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Counter Animation =====
+        const counterElements = document.querySelectorAll('[data-count]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-count'));
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                        const current = Math.round(eased * target);
+                        el.textContent = current + (target >= 100 ? '+' : '');
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        }
+                    }
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counterElements.forEach(el => counterObserver.observe(el));
+
+        // ===== Form Handling =====
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formMessage.classList.remove('hidden');
+            formMessage.className = 'text-center text-sm py-3 rounded-xl bg-gold-500/10 border border-gold-500/20 text-gold-400';
+            formMessage.innerHTML = '<span class="iconify inline-block align-middle mr-1" data-icon="mdi:check-circle" data-width="16"></span> Application submitted! We\'ll be in touch within 48 hours.';
+
+            // Reset form
+            setTimeout(() => {
+                contactForm.reset();
+            }, 500);
+
+            // Hide message after 5s
+            setTimeout(() => {
+                formMessage.classList.add('hidden');
+            }, 5000);
+        });
+
+        // ===== Smooth scroll for anchor links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
